@@ -1,4 +1,12 @@
+var timeLeft = 30;
+var elem = document.getElementById('timer')
+var timeId = setInterval(myFun, 1000);
+
 function myFun() {
-    console.log('This is my function');
+    if (timeLeft == -1) {
+        clearInterval(timeId);
+    } else {
+        elem.innerHTML = "Time:" + timeLeft + "s";
+        timeLeft--;
+    }
 }
-myFun();
