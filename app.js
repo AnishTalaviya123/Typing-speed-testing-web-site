@@ -1,4 +1,4 @@
 function myFun() {
-    alert('This is my function');
+    console.log('This is my function');
 }
 myFun();
