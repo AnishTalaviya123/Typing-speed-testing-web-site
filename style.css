@@ -67,3 +67,12 @@ li{
 .speed-info li{
     list-style: none;
 }
+
+/*!This is for input field  */
+.text-input{
+    outline: none;
+    background: transparent;
+    border: none;
+    width: 100%;
+    /* cursor: none; */
+}
