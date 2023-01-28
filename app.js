@@ -5,30 +5,47 @@ var input = document.querySelector('.text-input');
 var a = 0;
 var tryAgainBtn = document.querySelector('.myBtn');
 
+//! to split the paragraphs value
 var typingText = document.querySelector('.defultPara');
 var myParagraph = typingText.textContent.split("");
 // console.log(myParagraph);
 typingText.textContent = "";
 
-// to split the input value
+var inputChar;
+var typedChar;
 
+var textIndex = 0;
+var paraIndex = 0;
 
-// to get input value 
+//! This function will run when user type something 
 input.addEventListener('keypress', function newFun() {
-    var inputChar = input.value;
-    console.log(inputChar);
     if (a < 1) {
         timeId = setInterval(myFun, 1000);
     }
     a = 1;
 })
 
-// input.addEventListener('keypress', tryFun)
-// function tryFun() {
+//! To match the input value and paragraph value  
+input.addEventListener('input', tryFun)
+function tryFun() {
+    //! To  print user values 
+    inputChar = input.value.split("")[textIndex];
+    console.log("user value: "+inputChar);
+    textIndex++;
+
+    //!  to print paragraphs values
+    typedChar = myParagraph[paraIndex]
+    console.log("paragraph value: "+typedChar)
+    paraIndex++;
     
-    // var inputChar = input.value;
-    // console.log(inputChar);
-// }
+    if (inputChar == typedChar) {
+        console.log("Match found!");
+
+    } else {
+        console.log("Try again");
+    }
+}
+
 
 function myFun() {
     if (timeLeft == -1) {
@@ -53,6 +70,3 @@ tryAgainBtn.addEventListener('click', function toBtn() {
 myParagraph.forEach((myParagraph) => {
     typingText.innerHTML += '<span class="separateText">' + myParagraph + '</span>';
 })
-
-// var inputChar = input.value;
-//     console.log(inputChar);
