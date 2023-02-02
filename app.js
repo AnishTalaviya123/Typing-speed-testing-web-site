@@ -11,11 +11,8 @@ var myParagraph = typingText.textContent.split("");
 // console.log(myParagraph);
 typingText.textContent = "";
 
-var inputChar;
-var typedChar;
-
 var textIndex = 0;
-var paraIndex = 0;
+var paraIndex = -1;
 
 //! This function will run when user type something 
 input.addEventListener('keypress', function newFun() {
@@ -29,21 +26,26 @@ input.addEventListener('keypress', function newFun() {
 input.addEventListener('input', tryFun)
 function tryFun() {
     //! To  print user values 
-    inputChar = input.value.split("")[textIndex];
-    console.log("user value: "+inputChar);
-    textIndex++;
+    var inputChar = input.value.split("")[textIndex];
+    console.log("user value: " + inputChar);
 
     //!  to print paragraphs values
-    typedChar = myParagraph[paraIndex]
-    console.log("paragraph value: "+typedChar)
-    paraIndex++;
     
-    if (inputChar == typedChar) {
-        console.log("Match found!");
-
+    if (inputChar == null) {
+        textIndex--;
+        paraIndex--;
     } else {
-        console.log("Try again");
+        if (inputChar == typedChar) {
+            console.log("Match found!");
+
+        } else {
+            console.log("Try again");
+        }
+        textIndex++;
+        paraIndex++;
     }
+    var typedChar = myParagraph[paraIndex]
+    console.log("paragraph value: " + typedChar)
 }
 
 
