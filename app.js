@@ -10,9 +10,9 @@ var typingText = document.querySelector('.defultPara');
 var myParagraph = typingText.textContent.split("");
 // console.log(myParagraph);
 typingText.textContent = "";
-
+var mistakes = 0;
 var textIndex = 0;
-var paraIndex = -1;
+var paraIndex = 0;
 
 //! This function will run when user type something 
 input.addEventListener('keypress', function newFun() {
@@ -22,31 +22,49 @@ input.addEventListener('keypress', function newFun() {
     a = 1;
 })
 
+var lastCharOfInput = null;
 //! To match the input value and paragraph value  
 input.addEventListener('input', tryFun)
 function tryFun() {
+    
     //! To  print user values 
     var inputChar = input.value.split("")[textIndex];
-    console.log("user value: " + inputChar);
-
-    //!  to print paragraphs values
-    
+    var typedChar = myParagraph[textIndex]
     if (inputChar == null) {
-        textIndex--;
-        paraIndex--;
-    } else {
-        if (inputChar == typedChar) {
-            console.log("Match found!");
-
-        } else {
-            console.log("Try again");
+        console.log("Debug " + textIndex + " " + lastCharOfInput + " " + myParagraph[textIndex - 1]);
+        if(textIndex > 0 && lastCharOfInput != myParagraph[textIndex - 1]){
+            mistakes--;
+        }
+        textIndex = Math.max(textIndex - 1, 0);
+    }else{
+        if(inputChar != typedChar){
+            mistakes++;
         }
         textIndex++;
-        paraIndex++;
     }
-    var typedChar = myParagraph[paraIndex]
-    console.log("paragraph value: " + typedChar)
+    if(input.value.length > 0){
+        lastCharOfInput = input.value.split("")[input.value.length - 1];
+    }
+    console.log(mistakes);
+    // //!  to print paragraphs values
+
+    // if (inputChar == null) {
+    //     textIndex--;
+    //     paraIndex--;
+
+    // } else {
+    //     if (inputChar == typedChar) {
+    //         console.log("Match found!");
+
+    //     } else {
+    //         console.log("Try again");
+    //     }
+    //     textIndex++;
+    //     paraIndex++;
+    // }
+
 }
+
 
 
 function myFun() {
@@ -71,4 +89,5 @@ tryAgainBtn.addEventListener('click', function toBtn() {
 // split paragraphs
 myParagraph.forEach((myParagraph) => {
     typingText.innerHTML += '<span class="separateText">' + myParagraph + '</span>';
+
 })
