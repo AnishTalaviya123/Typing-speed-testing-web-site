@@ -5,6 +5,8 @@ var input = document.querySelector('.text-input');
 var a = 0;
 var tryAgainBtn = document.querySelector('.myBtn');
 
+var mistakeNumber = document.querySelector('.Mistake')
+
 //! to split the paragraphs value
 var typingText = document.querySelector('.defultPara');
 var myParagraph = typingText.textContent.split("");
@@ -15,12 +17,13 @@ var textIndex = 0;
 var paraIndex = 0;
 
 //! This function will run when user type something 
-input.addEventListener('keypress', function newFun() {
+function newFun() {
     if (a < 1) {
         timeId = setInterval(myFun, 1000);
     }
     a = 1;
-})
+}
+input.addEventListener('keypress',newFun)
 
 var lastCharOfInput = null;
 //! To match the input value and paragraph value  
@@ -31,7 +34,7 @@ function tryFun() {
     var inputChar = input.value.split("")[textIndex];
     var typedChar = myParagraph[textIndex]
     if (inputChar == null) {
-        console.log("Debug " + textIndex + " " + lastCharOfInput + " " + myParagraph[textIndex - 1]);
+        // console.log("Debug " + textIndex + " " + lastCharOfInput + " " + myParagraph[textIndex - 1]);
         if(textIndex > 0 && lastCharOfInput != myParagraph[textIndex - 1]){
             mistakes--;
         }
@@ -45,27 +48,8 @@ function tryFun() {
     if(input.value.length > 0){
         lastCharOfInput = input.value.split("")[input.value.length - 1];
     }
-    console.log(mistakes);
-    // //!  to print paragraphs values
-
-    // if (inputChar == null) {
-    //     textIndex--;
-    //     paraIndex--;
-
-    // } else {
-    //     if (inputChar == typedChar) {
-    //         console.log("Match found!");
-
-    //     } else {
-    //         console.log("Try again");
-    //     }
-    //     textIndex++;
-    //     paraIndex++;
-    // }
-
+    mistakeNumber.innerHTML = "Mistakes: " +mistakes;
 }
-
-
 
 function myFun() {
     if (timeLeft == -1) {
@@ -81,9 +65,18 @@ function myFun() {
 
 // to stop the timer
 tryAgainBtn.addEventListener('click', function toBtn() {
+    newFun();
     clearInterval(timeId);
     elem.innerHTML = "Time:60s";
     input.value = "";
+    tryFun();
+    mistakes = 0;
+    mistakeNumber.innerHTML = "Mistakes: 0";
+    a = 0;
+    timeLeft = 60
+    textIndex = 0;
+    paraIndex = 0;
+
 })
 
 // split paragraphs
